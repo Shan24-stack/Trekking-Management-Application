@@ -1,0 +1,215 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+
+    background:url("../images/mountain.png") no-repeat center center/cover;
+}
+
+.container{
+
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+.register-box{
+
+    width:430px;
+
+    padding:40px;
+
+    background:rgba(18,27,40,.70);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,255,255,.2);
+
+    color:#fff;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.4);
+
+}
+
+.register-box h1{
+
+    text-align:center;
+    margin-bottom:10px;
+    font-size:34px;
+
+}
+
+.register-box p{
+
+    text-align:center;
+    margin-bottom:30px;
+    color:#d5d5d5;
+
+}
+
+.input-box{
+
+    position:relative;
+    margin-bottom:18px;
+
+}
+
+.input-box i{
+
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#bbb;
+
+}
+
+.input-box input{
+
+    width:100%;
+    padding:14px 14px 14px 45px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.12);
+
+    color:#fff;
+
+    font-size:15px;
+
+}
+
+.input-box input::placeholder{
+
+    color:#ddd;
+
+}
+
+.select-box{
+
+    margin:20px 0;
+
+}
+
+.select-box label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#fff;
+
+}
+
+.select-box select{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.12);
+
+    color:#fff;
+
+    font-size:15px;
+
+}
+
+.select-box option{
+
+    color:#000;
+
+}
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#ffffff;
+
+    color:#1d3557;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:#d8e3ff;
+
+    transform:translateY(-2px);
+
+}
+
+.login-link{
+
+    margin-top:22px;
+
+    text-align:center;
+
+    font-size:15px;
+
+}
+
+.login-link a{
+
+    color:#4ea5ff;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.login-link a:hover{
+
+    text-decoration:underline;
+
+}
+
+@media(max-width:500px){
+
+.register-box{
+
+    width:90%;
+    padding:30px;
+
+}
+
+}

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Treks</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <h3>Trek User</h3>
+
+        <a href="{{ url_for('user_dashboard') }}">
+            <i class="bi bi-speedometer2"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="{{ url_for('browse_treks') }}" class="active">
+            <i class="bi bi-map"></i>
+            <span>Browse Treks</span>
+        </a>
+
+        <a href="{{ url_for('my_bookings') }}">
+            <i class="bi bi-calendar-check"></i>
+            <span>My Bookings</span>
+        </a>
+
+        <a href="{{ url_for('trek_history') }}">
+            <i class="bi bi-clock-history"></i>
+            <span>Trek History</span>
+        </a>
+
+        <a href="{{ url_for('user_profile') }}">
+            <i class="bi bi-person"></i>
+            <span>Profile</span>
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+        </a>
+
+    </div>
+
+    <!-- Main -->
+
+    <div class="main">
+
+        <!-- Topbar -->
+
+        <div class="topbar">
+
+            <h3>Trekking Management Application</h3>
+
+            <div>
+
+                <i class="bi bi-person-circle fs-3"></i>
+
+                {{ current_user.fullname }}
+
+            </div>
+
+        </div>
+
+        <!-- Header -->
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <h2>Browse Treks</h2>
+
+                <small class="text-muted">
+
+                    Explore all available trekking destinations.
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- Flash Messages -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="alert alert-{{ category }} alert-dismissible fade show">
+
+                    {{ message }}
+
+                    <button class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+        {% endwith %}
+
+        <!-- Search & Filter -->
+
+    <form method="GET" class="row mb-4">
+
+        <div class="col-md-5 mb-2">
+            <input type="text"
+                name="search"
+                class="form-control"
+                placeholder="Search by trek name or location"
+                value="{{ request.args.get('search', '') }}">
+        </div>
+
+        <div class="col-md-4 mb-2">
+            <select name="difficulty" class="form-select">
+
+                <option value="">All Difficulties</option>
+
+                <option value="Easy"
+                {% if request.args.get('difficulty') == 'Easy' %}selected{% endif %}>
+                    Easy
+                </option>
+
+                <option value="Moderate"
+                {% if request.args.get('difficulty') == 'Moderate' %}selected{% endif %}>
+                    Moderate
+                </option>
+
+                <option value="Hard"
+                {% if request.args.get('difficulty') == 'Hard' %}selected{% endif %}>
+                    Hard
+                </option>
+
+            </select>
+        </div>
+
+        <div class="col-md-3 mb-2 d-grid">
+            <button class="btn btn-primary">
+                <i class="bi bi-search"></i> Search
+            </button>
+        </div>
+
+    </form>
+
+        <!-- Trek Cards -->
+
+        <div class="row">
+
+        {% if treks %}
+
+        {% for trek in treks %}
+
+        <div class="col-md-6 col-lg-4 mb-4">
+
+            <div class="card shadow-sm h-100 border-0">
+
+                <div class="card-body">
+
+                    <h4>
+
+                        <i class="bi bi-map-fill text-primary"></i>
+
+                        {{ trek.name }}
+
+                    </h4>
+
+                    <hr>
+
+                    <p>
+
+                        <i class="bi bi-geo-alt-fill text-danger"></i>
+
+                        <strong>Location:</strong>
+
+                        {{ trek.location }}
+
+                    </p>
+
+                    <p>
+
+                        <i class="bi bi-bar-chart-fill text-success"></i>
+
+                        <strong>Difficulty:</strong>
+
+                        {{ trek.difficulty }}
+
+                    </p>
+
+                    <p>
+
+                        <i class="bi bi-clock-fill text-warning"></i>
+
+                        <strong>Duration:</strong>
+
+                        {{ trek.duration }}
+
+                    </p>
+
+                    <p>
+
+                        <i class="bi bi-cash-coin text-success"></i>
+
+                        <strong>Price:</strong>
+
+                        ₹ {{ trek.price }}
+
+                    </p>
+
+                    <p>
+
+                        <i class="bi bi-people-fill text-primary"></i>
+
+                        <strong>Available Slots:</strong>
+
+                        {{ trek.available_slots }}
+
+                    </p>
+
+                    <div class="d-grid">
+
+                        <a href="{{ url_for('user_trek_details', trek_id=trek.id) }}"
+                           class="btn btn-primary">
+
+                            <i class="bi bi-eye-fill"></i>
+
+                            View Details
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <div class="col-12">
+
+            <div class="alert alert-info text-center">
+
+                <i class="bi bi-info-circle-fill fs-3 d-block mb-2"></i>
+
+                <h5>No Treks Available</h5>
+
+                <p class="mb-0">
+
+                    There are currently no open treks available.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trek History</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="sidebar">
+
+<h3>Trek User</h3>
+
+<a href="{{ url_for('user_dashboard') }}">
+<i class="bi bi-speedometer2"></i>
+Dashboard
+</a>
+
+<a href="{{ url_for('browse_treks') }}">
+<i class="bi bi-map"></i>
+Browse Treks
+</a>
+
+<a href="{{ url_for('my_bookings') }}">
+<i class="bi bi-calendar-check"></i>
+My Bookings
+</a>
+
+<a href="{{ url_for('trek_history') }}" class="active">
+<i class="bi bi-clock-history"></i>
+Trek History
+</a>
+
+<a href="{{ url_for('user_profile') }}">
+<i class="bi bi-person"></i>
+<span>Profile</span>
+</a>
+
+<a href="{{ url_for('logout') }}">
+<i class="bi bi-box-arrow-right"></i>
+Logout
+</a>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<h3>Trekking Management Application</h3>
+
+<div>
+
+<i class="bi bi-person-circle fs-3"></i>
+
+{{ current_user.fullname }}
+
+</div>
+
+</div>
+
+<h2 class="mb-4">
+
+Trek History
+
+</h2>
+
+<div class="table-box">
+
+<table class="table table-hover">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Trek</th>
+<th>Booking Date</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% if history %}
+
+{% for booking in history %}
+
+<tr>
+
+<td>{{ booking.id }}</td>
+
+<td>{{ booking.trek.name }}</td>
+
+<td>{{ booking.booking_date.strftime("%d-%m-%Y") }}</td>
+
+<td>
+
+{% if booking.status=="completed" %}
+
+<span class="badge bg-success">
+
+Completed
+
+</span>
+
+{% else %}
+
+<span class="badge bg-danger">
+
+Cancelled
+
+</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+
+<td colspan="4" class="text-center py-5">
+
+<i class="bi bi-clock-history fs-1 d-block mb-3"></i>
+
+No Trek History Available
+
+</td>
+
+</tr>
+
+{% endif %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
