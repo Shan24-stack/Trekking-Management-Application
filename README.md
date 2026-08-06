@@ -33,7 +33,21 @@ Run:
 python app.py
 ```
 
+## Project Report
+
+The project report is included in this repository.
+
+File:
+Project_Report.pdf
+
+## Demo Video
+
+Google Drive Link:
+https://drive.google.com/file/d/1uRX-dQK6kzE370Ntz1Jo0NgyMmSPL6B5/view?usp=sharing
+
 ## Author
 
 Sanu Singh
-IIT Madras BS Degree Programme
+
+Roll Number:
+24F2003284
